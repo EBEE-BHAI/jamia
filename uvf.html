@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jamia Noor Ul Irfan - Online Islamic Education</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Darker Color Scheme */
+        :root {
+            --primary-dark-blue: #2c3e50; /* Deep blue-gray for primary elements */
+            --secondary-accent: #3498db; /* A vibrant blue for accents */
+            --light-text: #ecf0f1; /* Off-white for text on dark backgrounds */
+            --card-bg: #34495e; /* Slightly lighter dark blue for cards */
+            --darker-bg: #22303c; /* Even darker background for sections */
+            --gradient-start: #2c3e50;
+            --gradient-end: #34495e;
+            --shadow-light: rgba(0, 0, 0, 0.15);
+            --shadow-medium: rgba(0, 0, 0, 0.3);
+        }
+
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--darker-bg); /* Use darker background */
+            color: var(--light-text); /* Use light text */
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            color: var(--light-text); /* Ensure headings are light */
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            padding: 15px 0; /* Slightly smaller header padding */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px var(--shadow-medium);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 1.8em; /* Slightly smaller title */
+            font-weight: 700;
+            color: var(--light-text);
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease;
+        }
+
+        .header-title:hover {
+            transform: scale(1.05);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            font-size: 1.6em; /* Super small hamburger */
+            cursor: pointer;
+            color: var(--light-text);
+            display: block;
+            z-index: 1001;
+            padding: 5px; /* Add some padding for easier clicking */
+        }
+
+        /* Off-canvas menu (mobile/tablet) */
+        .off-canvas-menu {
+            position: fixed;
+            top: 0;
+            right: -280px; /* Slightly smaller menu width */
+            width: 250px;
+            height: 100%;
+            background-color: var(--primary-dark-blue); /* Dark background for menu */
+            box-shadow: -5px 0 15px var(--shadow-medium);
+            transition: right 0.4s ease-in-out;
+            padding-top: 70px; /* Adjust padding for smaller header */
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .off-canvas-menu.active {
+            right: 0;
+        }
+
+        .off-canvas-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .off-canvas-menu ul li {
+            text-align: center;
+            margin-bottom: 15px; /* Slightly less space */
+        }
+
+        .off-canvas-menu ul li a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 1.2em; /* Slightly smaller font in menu */
+            font-weight: 600;
+            padding: 8px 0;
+            display: block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .off-canvas-menu ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.05); /* Lighter hover effect */
+            color: var(--secondary-accent);
+        }
+
+        .whatsapp-menu-button {
+            background-color: var(--secondary-accent);
+            color: var(--primary-dark-blue); /* Dark text on accent button */
+            padding: 10px 20px; /* Smaller button */
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+            margin-top: 25px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .whatsapp-menu-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Overlay for off-canvas menu */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
+            z-index: 998;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1500x800/34495e/ecf0f1?text=Islamic+Pattern') no-repeat center center/cover;
+            color: var(--light-text);
+            text-align: center;
+            padding: 100px 20px; /* Adjusted padding */
+            min-height: 65vh; /* Slightly smaller hero */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3em; /* Adjusted font size */
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: var(--light-text);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.5em; /* Adjusted font size */
+            margin-bottom: 30px;
+            color: rgba(236, 240, 241, 0.9);
+            animation: slideInRight 1s ease-out;
+        }
+
+        .hero-button {
+            background-color: var(--secondary-accent); /* Blue button */
+            color: var(--primary-dark-blue); /* Dark text on button */
+            padding: 15px 35px; /* Adjusted padding */
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow-medium);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px var(--shadow-medium);
+        }
+
+        /* Sections General */
+        section {
+            padding: 80px 0; /* Consistent section padding */
+            position: relative;
+        }
+
+        section:nth-of-type(odd) {
+            background-color: var(--darker-bg); /* Darker background */
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--primary-dark-blue); /* Primary dark blue for alternating sections */
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.8em; /* Adjusted heading size */
+            margin-bottom: 50px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+            color: var(--light-text); /* Ensure headings are light */
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 70px; /* Slightly smaller underline */
+            height: 3px; /* Thinner underline */
+            background-color: var(--secondary-accent); /* Accent color underline */
+            border-radius: 2px;
+        }
+
+        /* Card Grids */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly smaller min-width */
+            gap: 30px; /* Reduced gap */
+        }
+
+        .card {
+            background-color: var(--card-bg); /* Use card background color */
+            border-radius: 12px; /* Slightly less rounded */
+            box-shadow: 0 6px 20px var(--shadow-light);
+            padding: 30px; /* Reduced padding */
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.01); /* Reduced lift and scale */
+            box-shadow: 0 10px 25px var(--shadow-medium);
+        }
+
+        /* Course Image Aspect Ratio */
+        .course-card .card-img {
+            width: 100%; /* Make image container take full width of card */
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio (9 / 16 * 100%) */
+            height: 0; /* Important to make padding-bottom work for aspect ratio */
+            position: relative;
+            border-radius: 8px; /* Slightly rounded corners for the image container */
+            margin-bottom: 20px; /* Keep margin */
+            border: none; /* No border for the image container itself */
+        }
+
+        .course-card .card-img img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the area, cropping if necessary */
+            border-radius: 8px; /* Apply border radius directly to the image */
+            border: 3px solid var(--secondary-accent); /* Accent color border */
+            transition: transform 0.3s ease;
+        }
+
+        .course-card:hover .card-img img {
+            transform: scale(1.05); /* Slight zoom on hover for the image */
+        }
+
+        /* General card image for Founders/Teachers */
+        .card-img {
+            max-width: 80px; /* Smaller image */
+            margin: 0 auto 20px auto; /* Reduced margin */
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--secondary-accent); /* Accent color border */
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.08); /* Reduced scale */
+        }
+
+        .card-img img {
+            width: 50%;
+            height: 50%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            font-size: 1.7em; /* Adjusted heading size */
+            margin-bottom: 12px; /* Reduced margin */
+            font-weight: 600;
+            color: var(--secondary-accent); /* Accent color for card titles */
+        }
+
+        .card p {
+            font-size: 0.95em; /* Slightly smaller text */
+            line-height: 1.6;
+            color: var(--light-text); /* Light text on cards */
+            text-align: left;
+            flex-grow: 1;
+            margin-bottom: 15px; /* Reduced margin */
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px; /* Reduced margin */
+            text-align: left;
+            color: var(--light-text); /* Light text for list items */
+        }
+
+        .card ul li {
+            margin-bottom: 6px; /* Reduced margin */
+            position: relative;
+            padding-left: 22px; /* Adjusted padding */
+            font-size: 0.9em;
+        }
+
+        .card ul li::before {
+            content: '✓';
+            color: var(--secondary-accent); /* Accent color for checkmark */
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .card-button {
+            display: inline-block;
+            background-color: var(--secondary-accent); /* Accent color button */
+            color: var(--primary-dark-blue); /* Dark text on accent button */
+            padding: 12px 25px; /* Reduced padding */
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em;
+            margin-top: 20px; /* Reduced margin */
+            transition: transform 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 3px 8px var(--shadow-light);
+        }
+
+        .card-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px var(--shadow-medium);
+            background-color: #2980b9;
+        }
+
+        /* Research Card specifics */
+        .research-card img {
+            border-radius: 8px;
+            height: 160px; /* Slightly smaller image */
+            width: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        .research-card h3 {
+            min-height: 50px; /* Consistent title height */
+            font-size: 1.5em; /* Adjusted font size */
+        }
+
+        .research-card .download-button {
+            background-color: var(--secondary-accent);
+            color: var(--primary-dark-blue);
+        }
+
+        .research-card .download-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* About Section */
+        .about-section {
+            text-align: center;
+        }
+
+        .about-section p {
+            font-size: 1.05em; /* Slightly smaller text */
+            line-height: 1.8;
+            max-width: 800px; /* Reduced max-width */
+            margin: 0 auto 20px auto;
+            color: var(--light-text); /* Light text */
+        }
+
+        /* Founder & Teacher Cards */
+        .founder-card .card-img,
+        .teacher-card .card-img {
+            width: 140px; /* Smaller images */
+            height: 140px;
+        }
+
+        .founder-card h3, .teacher-card h3 {
+            font-size: 1.6em; /* Adjusted font size */
+            color: var(--light-text); /* Light text */
+        }
+
+        .founder-card p, .teacher-card p {
+            font-size: 0.95em; /* Adjusted font size */
+            color: rgba(236, 240, 241, 0.8); /* Slightly faded light text */
+            margin-bottom: 8px;
+        }
+
+        .founder-card .vision {
+            font-style: italic;
+            color: rgba(236, 240, 241, 0.6); /* Even more faded light text */
+            font-size: 0.9em;
+        }
+
+        /* Contact / CTA Section */
+        .contact-cta-section {
+            background: linear-gradient(90deg, var(--primary-dark-blue) 0%, var(--card-bg) 100%);
+            color: var(--light-text);
+            text-align: center;
+        }
+
+        .contact-cta-section h2 {
+            color: var(--light-text);
+        }
+
+        .contact-cta-button {
+            background-color: var(--secondary-accent);
+            color: var(--primary-dark-blue); /* Dark text on accent button */
+            padding: 15px 35px; /* Adjusted padding */
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.4em; /* Adjusted font size */
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        .contact-cta-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark-blue);
+            color: var(--light-text);
+            padding: 40px 0; /* Reduced padding */
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .footer-content {
+            flex-direction: column;
+            gap: 20px; /* Reduced gap */
+        }
+
+        .footer-nav ul {
+            gap: 20px; /* Reduced gap */
+        }
+
+        .footer-nav ul li a {
+            color: var(--light-text);
+        }
+
+        .footer-nav ul li a:hover {
+            color: var(--secondary-accent);
+        }
+
+        .social-icons a {
+            color: var(--light-text);
+            font-size: 26px; /* Slightly smaller icons */
+            margin: 0 8px; /* Reduced margin */
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary-accent);
+        }
+
+        .footer-info p {
+            margin: 6px 0;
+            color: rgba(236, 240, 241, 0.7);
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Scroll Animations (using basic JS for adding class) */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 2.5em;
+            }
+            .hero-content p {
+                font-size: 1.3em;
+            }
+            section h2 {
+                font-size: 2.2em;
+            }
+            .card {
+                padding: 20px;
+            }
+            .card h3 {
+                font-size: 1.4em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 70px 20px;
+            }
+            .hero-content h1 {
+                font-size: 2em;
+            }
+            .hero-content p {
+                font-size: 1.1em;
+            }
+            .hero-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            section {
+                padding: 60px 0;
+            }
+            section h2 {
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+            .off-canvas-menu {
+                width: 220px;
+            }
+            .hamburger {
+                font-size: 1.4em; /* Even smaller on mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 1.4em;
+            }
+            .hamburger {
+                font-size: 1.2em;
+            }
+            .hero-content h1 {
+                font-size: 1.6em;
+            }
+            .hero-content p {
+                font-size: 0.9em;
+            }
+            .card {
+                padding: 15px;
+            }
+            .card h3 {
+                font-size: 1.5em;
+            }
+            .card p {
+                font-size: 0.85em;
+            }
+            .card-button, .research-card .download-button, .whatsapp-menu-button {
+                padding: 10px 18px;
+                font-size: 0.9em;
+            }
+            .contact-cta-section h2 {
+                font-size: 1.6em;
+            }
+            .contact-cta-button {
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+            .footer-nav ul {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+   <header>
+        <div class="container navbar">
+            <span class="header-title">Noor Ul Irfan</span>
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+        </div>
+    </header>
+
+    <div class="off-canvas-menu" id="off-canvas-menu">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#founders">Founders</a></li>
+            <li><a href="#teachers">Teachers</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="https://wa.me/923256069667" target="_blank" class="whatsapp-menu-button">Join WhatsApp Group</a>
+    </div>
+    <div class="overlay" id="menu-overlay"></div>
+
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1>Join Jamia Noor Ul Irfan Online Ilm Courses</h1>
+            <p>Learn Aqaid, Fiqh, Tajweed, Naat Khwani, and More</p>
+            <a href="#courses" class="hero-button">Explore Courses</a>
+        </div>
+    </section>
+
+    <section id="courses" class="courses-section">
+        <div class="container">
+            <h2>Our Courses</h2>
+            <div class="grid-layout">
+                <div class="card course-card">
+                       <h3>Ilm-e-Aqaid Course</h3>
+                    <p>Learn the foundational beliefs of Islam according to Ahl-e-Sunnat Wal Jamaat.</p>
+                    <ul>
+                        <li>🌙 Meaning and importance of Aqeedah</li>
+                        <li>🌟 Beliefs about Allah, His Attributes</li>
+                        <li>🕋 Beliefs regarding Prophets (A.S)</li>
+                        <li>📜 Finality of Prophethood</li>
+                        <li>🧠 Refutation of wrong sects’ beliefs</li>
+                        <li>🤲 Basic questions of Aqeedah with references</li>
+                    </ul>
+                    <a href="https://wa.me/923256069667?text=I+want+to+join+the+Ilm-e-Aqaid+Course" target="_blank" class="card-button">Join This Course</a>
+                </div>
+
+                <div class="card course-card">
+                      <h3>Ilm-e-Fiqh Course</h3>
+                    <p>Learn the Islamic rulings (Ahkaam) related to daily life.</p>
+                    <ul>
+                        <li>💧 Taharat (Purity)</li>
+                        <li>🕓 Namaz (Salah) Fiqh</li>
+                        <li>🗓 Roza, Zakat, Hajj rulings</li>
+                        <li>🏠 Fiqh of Nikah, Talaq</li>
+                        <li>⚖️ Business & Transactions rulings</li>
+                        <li>🕌 Masail of Jummah, Eid, Janazah</li>
+                    </ul>
+                    <a href="https://wa.me/923256069667?text=I+want+to+join+the+Ilm-e-Fiqh+Course" target="_blank" class="card-button">Join This Course</a>
+                </div>
+
+                <div class="card course-card">
+                      <h3>Uloom-e-Farz Course</h3>
+                    <p>Understand the essential knowledge every Muslim must learn.</p>
+                    <ul>
+                        <li>✅ What is Farz-e-Ain knowledge</li>
+                        <li>🧕 Wajibat of men and women</li>
+                        <li>🕋 Beliefs that are compulsory to know</li>
+                        <li>💡 Fard actions in Ibadah</li>
+                        <li>🧼 Rules of cleanliness and worship</li>
+                    </ul>
+                    <a href="https://wa.me/923256069667?text=I+want+to+join+the+Uloom-e-Farz+Course" target="_blank" class="card-button">Join This Course</a>
+                </div>
+
+                <div class="card course-card">
+                       <h3>Ilm-e-Tijarat Course</h3>
+                    <p>Islamic guidance on business, trade, and finance.</p>
+                    <ul>
+                        <li>🛍 What makes a transaction halal or haram</li>
+                        <li>💳 Rules of loans and interest</li>
+                        <li>🧾 Business ethics in Islam</li>
+                        <li>🤝 Trade contracts and partnerships</li>
+                        <li>🪙 Zakat on business wealth</li>
+                    </ul>
+                    <a href="https://wa.me/923256069667?text=I+want+to+join+the+Ilm-e-Tijarat+Course" target="_blank" class="card-button">Join This Course</a>
+                </div>
+
+                <div class="card course-card">
+                      <h3>Complete Naat Khwan Course</h3>
+                    <p>Become a professional Naat reciter.</p>
+                    <ul>
+                        <li>🎤 Correct pronunciation</li>
+                        <li>🎶 Melody training (Scale & Rhythm)</li>
+                        <li>📖 Poetic Naat selection</li>
+                        <li>🎙 Voice modulation and breath control</li>
+                        <li>🕌 Adab of reciting Naat in public</li>
+                    </ul>
+                    <a href="https://wa.me/923256069667?text=I+want+to+join+the+Complete+Naat+Khwan+Course" target="_blank" class="card-button">Join This Course</a>
+                </div>
+
+                <div class="card course-card">
+                        <h3>Tajweed Course</h3>
+                    <p>Learn proper Quran recitation with Tajweed rules.</p>
+                    <ul>
+                        <li>📖 Makharij (Letter pronunciation)</li>
+                        <li>📚 Qawaid (Rules of Tajweed)</li>
+                        <li>💨 Ghunnah, Ikhfa, Idgham</li>
+                        <li>🧠 Common recitation mistakes</li>
+                        <li>🕋 Practical recitation practice</li>
+                    </ul>
+                    <a href="https://wa.me/923256069667?text=I+want+to+join+the+Tajweed+Course" target="_blank" class="card-button">Join This Course</a>
+                </div>
+
+                <div class="card course-card">
+                       <h3>Seerat-Un-Nabi (S.A.W) Course</h3>
+                    <p>Detailed life of Prophet Muhammad ﷺ.</p>
+                    <ul>
+                        <li>🕋 Birth, lineage, early life</li>
+                        <li>🕌 Makkah and Madina life</li>
+                        <li>📜 Important Ghazwat</li>
+                        <li>🧕 His Akhlaaq & dealings</li>
+                        <li>🌙 His mission and miracles</li>
+                    </ul>
+                    <a href="https://wa.me/923256069667?text=I+want+to+join+the+Seerat-Un-Nabi+(S.A.W)+Course" target="_blank" class="card-button">Join This Course</a>
+                </div>
+
+                <div class="card course-card">
+                        <h3>Usool-e-Hadees Course</h3>
+                    <p>Science of Hadith and authentication.</p>
+                    <ul>
+                        <li>📖 What is Hadith & Sunnah</li>
+                        <li>🧠 Types of Hadith (Sahih, Da'eef)</li>
+                        <li>🧾 Classification and chain of narrators</li>
+                        <li>🕯 Preservation of Hadith</li>
+                        <li>🕌 Great Muhaddiseen and their books</li>
+                    </ul>
+                    <a href="https://wa.me/923256069667?text=I+want+to+join+the+Usool-e-Hadees+Course" target="_blank" class="card-button">Join This Course</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section id="research" class="research-section">
+        <div class="container fade-in-section">
+            <h2>Our Research Papers</h2>
+            <div class="grid-layout research-grid">
+                <div class="card research-card">
+                        <h3>AhleSunnat Wal Jammar Aur Firqa-E-Batila</h3>
+                    <a href="#" download="#" class="card-button download-button">Coming Soon!</a>
+                </div>
+                <div class="card research-card">
+                     <h3>Usool-E-Hadees Par Tehqiq</h3>
+                     <a href="#" download="#" class="card-button download-button">Coming Soon!</a>
+                </div>
+                <div class="card research-card">
+                        <h3>Hazrat Ameer Muawiya R.A Par Aitraz Ke Jawabat</h3>
+                    <a href="#" download="#" class="card-button download-button">Coming Soon!</a>
+                </div>
+                <div class="card research-card">
+                     <h3>Eng. Muhammad Ali Mirza Ki Gustakhiyan</h3>
+                    <a href="#" download="#" class="card-button download-button">Coming Soon!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section id="about" class="about-section">
+        <div class="container fade-in-section">
+            <h2>About Jamia Noor Ul Irfan</h2>
+            <p>Jamia Noor Ul Irfan is an innovative online Islamic education platform dedicated to making authentic Islamic knowledge accessible to everyone, everywhere. Our mission is to provide high-quality, free education in various branches of Islamic sciences.</p>
+            <p>We are affiliated with the <b>Ahl-e-Sunnat Wal Jamaat</b> and strive to impart knowledge rooted in the teachings of the Quran and Sunnah, adhering to the traditional understanding of Islam. Our goal is to empower individuals with the necessary religious understanding to navigate modern life in accordance with Islamic principles.</p>
+            <p>Join us on a journey of spiritual and intellectual growth, as we aim to spread the light of "Ilm" (knowledge) to all who seek it, making it free and accessible for the betterment of the Ummah.</p>
+        </div>
+    </section>
+
+   
+    <section id="founders" class="founders-section">
+        <div class="container fade-in-section">
+            <h2>Our Founders</h2>
+            <div class="grid-layout">
+                <div class="card founder-card">
+                      <h3>Syed Ebad Ali Shah Qadri Razavi</h3>
+                    <p>Founder & Spiritual Advisor</p>
+                    <p class="vision">"Our vision is to empower every Muslim with true Islamic knowledge, freely and accessibly, ensuring no one is deprived of divine guidance."</p>
+                </div>
+                
+                <div class="card founder-card">
+                    <h3>Allama Ahmed Raza</h3>
+                    <p>Co-Founder & Curriculum Developer</p>
+                    <p class="vision">"Crafting comprehensive and engaging curricula is key to nurturing a deep understanding and love for Islamic studies."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section id="teachers" class="teachers-section">
+        <div class="container fade-in-section">
+            <h2>Meet Our Dedicated Teachers</h2>
+            <div class="grid-layout">
+                <div class="card teacher-card">
+                     <h3>Moulana Irfan Shah</h3>
+                    <p>Subject: Fiqh & Usool-e-Hadees</p>
+                    <p>Moulana Irfan Shah has extensive knowledge in Islamic jurisprudence and Hadith studies, with years of teaching experience.</p>
+                </div>
+              
+                <div class="card teacher-card">
+                      <h3>Mufti Bilal Hassan</h3>
+                    <p>Subject: Ilm-e-Aqaid & Fiqh</p>
+                    <p>Mufti Bilal Hassan specializes in Islamic theology and provides profound insights into core beliefs and daily rulings.</p>
+                </div>
+                <div class="card teacher-card">
+                      <h3>Qari Abdul Majeed</h3>
+                    <p>Subject: Tajweed & Naat Khwani</p>
+                    <p>Qari Abdul Majeed is an expert in Quranic phonetics and a celebrated Naat reciter, guiding students to perfect their voice.</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-cta-section">
+        <div class="container fade-in-section">
+            <h2>Start Your Ilm Journey Today</h2>
+            <a href="https://wa.me/923256069667" target="_blank" class="contact-cta-button">Chat Now</a>
+        </div>
+    </section>
+
+   
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#founders">Founders</a></li>
+                    <li><a href="#teachers">Teachers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook">FB</a>
+                <a href="#" aria-label="Twitter">TW</a>
+                <a href="#" aria-label="Instagram">IG</a>
+            </div>
+            <div class="footer-info">
+                <p>WhatsApp: +92 325 606 9667</p>
+                <p>Website: <a href="https://jamianoorulirfan.site" target="_blank" style="color: var(--light-text);">https://jamianoorulirfan.site</a></p>
+                <p>&copy; 2025 Jamia Noor Ul Irfan. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu and Off-canvas functionality
+        const hamburger = document.getElementById('hamburger-menu');
+        const offCanvasMenu = document.getElementById('off-canvas-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+
+        function toggleMenu() {
+            offCanvasMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = offCanvasMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu); // Close when clicking outside
+        document.querySelectorAll('#off-canvas-menu ul li a, .whatsapp-menu-button').forEach(item => {
+            item.addEventListener('click', toggleMenu); // Close menu on link click
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const fadeInSections = document.querySelectorAll('.fade-in-section');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        fadeInSections.forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
